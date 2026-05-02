@@ -134,11 +134,16 @@ cd taskflow-pro
 # 2. Install dependencies
 pip install flask PyJWT bcrypt
 
-# 3. Start the server
+# 3. Before starting the app, update the GROQ API key
+#    Open this file: Task_Flow_Pro/taskflowpro/backend/app.py
+#    Go to line 9 and replace it with:
+#    GROQ_API_KEY = os.environ.get('GROQ_API_KEY','Your Api Key genrate it from groq.com')
+
+# 4. Start the server
 cd backend
 python app.py
 
-# 4. Open your browser
+# 5. Open your browser
 # → http://localhost:5000
 ```
 
