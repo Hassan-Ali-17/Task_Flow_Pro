@@ -296,7 +296,7 @@ This project is submitted as a **confidential group assignment**. All rights res
 
 <div align="center">
 
-**Built with ☕ and 🤖 by Hassan & Moeed — BSCS 4th Sem, March 2026**
+**Built with ☕ and 🤖 by Hassan & Abdul Moeed — BSCS 4th Sem, March 2026**
 
 *"One platform. Every team. Any task."*
 
