@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskFlow Pro — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0f;--surface:#13131a;--surface2:#1c1c28;--border:#2a2a3d;
+  --accent:#6c63ff;--accent2:#ff6584;--accent3:#43e97b;
+  --text:#f0f0f8;--muted:#8888a8;--radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(108,99,255,.15) 0%,transparent 60%),
+             radial-gradient(ellipse 60% 50% at 80% 80%,rgba(255,101,132,.10) 0%,transparent 60%);
+  pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(108,99,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(108,99,255,.04) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none}
+
+.layout{position:relative;z-index:1;display:flex;min-height:100vh}
+
+/* LEFT */
+.hero{flex:1.2;display:flex;flex-direction:column;justify-content:center;padding:60px 80px;position:relative}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:80px}
+.logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:22px}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+.logo-text span{color:var(--accent)}
+.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.3);border-radius:100px;padding:6px 16px;font-size:.78rem;font-weight:500;color:#a89fff;margin-bottom:32px;width:fit-content;letter-spacing:.04em;text-transform:uppercase}
+.tag::before{content:'●';font-size:8px;color:var(--accent3);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,4vw,4.2rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:24px}
+h1 .c1{color:var(--accent)}
+.sub{font-size:1.1rem;color:var(--muted);font-weight:300;line-height:1.7;max-width:480px;margin-bottom:48px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:.85rem;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%}
+.pill:nth-child(1) .dot{background:var(--accent)}
+.pill:nth-child(2) .dot{background:var(--accent2)}
+.pill:nth-child(3) .dot{background:var(--accent3)}
+.pill:nth-child(4) .dot{background:#ffd166}
+
+/* RIGHT */
+.auth-side{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;border-left:1px solid var(--border);background:rgba(19,19,26,.6);backdrop-filter:blur(20px)}
+.auth-box{width:100%;max-width:420px;animation:slideIn .4s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.tabs{display:flex;background:var(--surface2);border-radius:12px;padding:4px;margin-bottom:36px;border:1px solid var(--border)}
+.tab{flex:1;padding:10px;border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:var(--muted);border-radius:9px;transition:all .2s}
+.tab.active{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(108,99,255,.4)}
+
+.form-title{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
+.form-sub{color:var(--muted);font-size:.9rem;margin-bottom:32px}
+
+.field{margin-bottom:20px}
+.field label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:7px;letter-spacing:.04em;text-transform:uppercase}
+.field input{width:100%;padding:13px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)}
+.field input::placeholder{color:#44445a}
+
+.btn-submit{width:100%;padding:15px;background:linear-gradient(135deg,var(--accent),#8b85ff);border:none;border-radius:12px;cursor:pointer;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:.02em;transition:all .2s;margin-top:8px}
+.btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,99,255,.5)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed}
+
+.msg{border-radius:10px;padding:12px 16px;font-size:.88rem;margin-bottom:20px;display:none}
+.msg.show{display:block}
+.msg.error{background:rgba(255,101,132,.1);border:1px solid rgba(255,101,132,.3);color:#ff8fa3;animation:shake .3s ease}
+.msg.success{background:rgba(67,233,123,.1);border:1px solid rgba(67,233,123,.3);color:#43e97b}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  .layout{flex-direction:column}
+  .hero{padding:40px 30px}
+  .auth-side{border-left:none;border-top:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="hero">
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">TaskFlow<span>Pro</span></div>
+    </div>
+    <div class="tag">Universal Team Platform</div>
+    <h1>One workspace<br>for <span class="c1">every</span><br>kind of team</h1>
+    <p class="sub">Assign tasks, track progress, and collaborate — whether your team codes, designs, markets, or manages. Like Google Classroom, built for professionals.</p>
+    <div class="pills">
+      <div class="pill"><span class="dot"></span>Task Management</div>
+      <div class="pill"><span class="dot"></span>Code Compiler</div>
+      <div class="pill"><span class="dot"></span>All Departments</div>
+      <div class="pill"><span class="dot"></span>Real-time Updates</div>
+    </div>
+  </div>
+
+  <div class="auth-side">
+    <div class="auth-box">
+      <div class="tabs">
+        <button class="tab active" id="tab-login" onclick="showTab('login')">Sign In</button>
+        <button class="tab" id="tab-register" onclick="showTab('register')">Create Account</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="panel-login">
+        <h2 class="form-title">Welcome back</h2>
+        <p class="form-sub">Sign in to your workspace</p>
+        <div class="msg error" id="login-err"></div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="l-email" placeholder="you@company.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn-submit" id="btn-login" onclick="doLogin()">Sign In →</button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="panel-register" style="display:none">
+        <h2 class="form-title">Get started free</h2>
+        <p class="form-sub">Create your account in seconds</p>
+        <div class="msg error" id="reg-err"></div>
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="r-name" placeholder="Alex Johnson" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="r-email" placeholder="you@company.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="r-pass" placeholder="Min. 6 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-submit" id="btn-reg" onclick="doRegister()">Create Account →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// redirect if already logged in
+if(localStorage.getItem('token')){window.location.href='/app'}
+
+function showTab(t){
+  document.getElementById('panel-login').style.display    = t==='login'    ? '' : 'none';
+  document.getElementById('panel-register').style.display = t==='register' ? '' : 'none';
+  document.getElementById('tab-login').classList.toggle('active',   t==='login');
+  document.getElementById('tab-register').classList.toggle('active', t==='register');
+}
+
+function showErr(id, msg){
+  const el=document.getElementById(id);
+  el.textContent=msg; el.className='msg error show';
+  setTimeout(()=>el.classList.remove('show'),5000);
+}
+
+function setLoading(btnId, loading, label){
+  const b=document.getElementById(btnId);
+  b.disabled=loading;
+  b.innerHTML=loading?'<span class="spinner"></span>Please wait...':label;
+}
+
+async function doLogin(){
+  const email=document.getElementById('l-email').value.trim();
+  const pass =document.getElementById('l-pass').value;
+  if(!email||!pass){showErr('login-err','Please fill in all fields.');return}
+  setLoading('btn-login',true,'Sign In →');
+  try{
+    const res=await fetch('/api/auth/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,password:pass})
+    });
+    let data={};
+    try{ data=await res.json(); }catch(je){ throw new Error('Server returned an invalid response. Is the server running?'); }
+    if(!res.ok) throw new Error(data.error||'Login failed');
+    localStorage.setItem('token',data.token);
+    localStorage.setItem('user',JSON.stringify(data.user));
+    window.location.href='/app';
+  }catch(e){
+    showErr('login-err',e.message);
+    setLoading('btn-login',false,'Sign In →');
+  }
+}
+
+async function doRegister(){
+  const name =document.getElementById('r-name').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const pass =document.getElementById('r-pass').value;
+  if(!name||!email||!pass){showErr('reg-err','Please fill in all fields.');return}
+  if(pass.length<6){showErr('reg-err','Password must be at least 6 characters.');return}
+  setLoading('btn-reg',true,'Create Account →');
+  try{
+    const res=await fetch('/api/auth/register',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:name,email,password:pass})
+    });
+    let data={};
+    try{ data=await res.json(); }catch(je){ throw new Error('Server returned an invalid response. Is the server running on port 5000?'); }
+    if(!res.ok) throw new Error(data.error||'Registration failed');
+    localStorage.setItem('token',data.token);
+    localStorage.setItem('user',JSON.stringify(data.user));
+    window.location.href='/app';
+  }catch(e){
+    showErr('reg-err',e.message);
+    setLoading('btn-reg',false,'Create Account →');
+  }
+}
+
+// Enter key support
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter') return;
+  const loginVisible=document.getElementById('panel-login').style.display!=='none';
+  if(loginVisible) doLogin(); else doRegister();
+});
+</script>
+</body>
+</html>
